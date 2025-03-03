@@ -1,5 +1,6 @@
 winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
 winget install Schniz.fnm
+winget install Git.Git
 
 # refresh env
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
@@ -17,3 +18,21 @@ Write-Output "fnm env --shell powershell | out-string | iex" > $PROFILE
 # install node
 fnm install 22
 fnm default 22
+
+$vsCodePath = "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe"
+
+$shortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Desktop"), "Visual Studio Code.lnk")
+
+if (!(Test-Path $vsCodePath)) {
+    Write-Host "VS Code exe not found, can't create shortcut"
+    exit 1
+}
+
+$wss = New-Object -ComObject WScript.Shell
+$shortcut = $wss.CreateShortcut($shortcutPath)
+
+$shortcut.TargetPath = $vsCodePath
+$shortcut.WorkingDirectory = $(Split-Path -Parent $vsCodePath)
+$shortcut.Save()
+
+Write-Host "Created shortcut"
