@@ -22,9 +22,10 @@ Write-Output "fnm env --shell powershell | out-string | iex" > $PROFILE
 fnm install 22
 fnm default 22
 
+# add vscode shortcut
 $vsCodePath = "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe"
-
-$shortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Desktop"), "Visual Studio Code.lnk")
+$desktop = [System.Environment]::GetFolderPath("Desktop")
+$shortcutPath = [System.IO.Path]::Combine($desktop, "Visual Studio Code.lnk")
 
 if (!(Test-Path $vsCodePath)) {
     Write-Host "VS Code exe not found, can't create shortcut"
@@ -39,3 +40,9 @@ $shortcut.WorkingDirectory = $(Split-Path -Parent $vsCodePath)
 $shortcut.Save()
 
 Write-Host "Created shortcut"
+
+# Clone project & install deps
+Set-Location $desktop
+git clone https://github.com/tomfl0/workshop
+Set-Location workshop
+npm install
