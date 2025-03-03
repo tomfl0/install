@@ -4,6 +4,9 @@ winget install Schniz.fnm
 # refresh env
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
+code --install-extension esbenp.prettier-vscode
+code --install-extension ritwickdey.LiveServer
+
 # create powershell profile folder if it doesnt exist yet
 mkdir $(Split-Path -Parent $PROFILE)
 
