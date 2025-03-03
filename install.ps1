@@ -46,3 +46,4 @@ Set-Location $desktop
 git clone https://github.com/tomfl0/workshop
 Set-Location workshop
 npm install
+code .
