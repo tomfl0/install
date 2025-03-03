@@ -1,3 +1,6 @@
+# To allow sourcing the pwsh profile later
+Set-ExecutionPolicy RemoteSigned
+
 winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
 winget install Schniz.fnm
 winget install Git.Git
